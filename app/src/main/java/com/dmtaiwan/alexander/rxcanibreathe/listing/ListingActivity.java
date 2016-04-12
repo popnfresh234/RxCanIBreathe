@@ -104,7 +104,10 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     @Override
     public void showStations(List<AQStation> stations) {
         mProgressBar.setVisibility(View.INVISIBLE);
-        Snackbar.make(mCoordinatorLayout, "Stations: " + stations.size(), Snackbar.LENGTH_LONG).show();
+        ListingFragment primaryFragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, 0);
+        ListingFragment secondaryFragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, 1);
+        primaryFragment.setData(stations);
+        secondaryFragment.setData(stations);
     }
 
     @Override
