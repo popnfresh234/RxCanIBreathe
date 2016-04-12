@@ -1,0 +1,19 @@
+<resources>
+
+
+
+    <!--TextSizes-->
+    <dimen name="aq_station_font_large">28sp</dimen>
+    <dimen name="aq_station_font_medium">20sp</dimen>
+    <dimen name="aq_station_font_small">12sp</dimen>
+    <dimen name="aq_station_font_tiny">10sp</dimen>
+
+    <!--Spacing-->
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="detail_padding_top">16dp</dimen>
+    <dimen name="detail_item_margin_right">64dp</dimen>
+    <dimen name="detail_item_margin_left">64dp</dimen>
+    <dimen name="detail_list_view_padding">9dp</dimen>
+</resources>

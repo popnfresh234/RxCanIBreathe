@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--Status Colors-->
+    <color name="statusGreen">#4caf50</color>
+    <color name="statusYellow">#ffeb3b</color>
+    <color name="statusOrange">#ff9800</color>
+    <color name="statusRed">#f44336</color>
+    <color name="statusPurple">#9c27b0</color>
+
+    <!--Text Colors-->
+    <color name="textWhite">#ffffff</color>
+    <color name="textDarkBg87">#dd000000</color>
+    <color name="textDarkBg54">#8a000000</color>
+    <color name="textLightBg70">#b3ffffff</color>
+
+
+    <!--Background Colors-->
+    <color name="bgGray600">#757575</color>
+    <color name="bgGray400">#bdbdbd</color>
+    <color name="bgGray300">#e0e0e0</color>
+</resources>
