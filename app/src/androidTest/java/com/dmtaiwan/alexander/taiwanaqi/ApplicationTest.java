@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe;
+package com.dmtaiwan.alexander.taiwanaqi;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

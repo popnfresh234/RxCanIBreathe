@@ -1,10 +1,10 @@
-package com.dmtaiwan.alexander.rxcanibreathe.utilities;
+package com.dmtaiwan.alexander.taiwanaqi.utilities;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
-import com.dmtaiwan.alexander.rxcanibreathe.R;
+import com.dmtaiwan.alexander.taiwanaqi.R;
 
 import java.io.BufferedReader;
 import java.io.File;

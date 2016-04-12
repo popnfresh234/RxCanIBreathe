@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.listing;
+package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dmtaiwan.alexander.rxcanibreathe.R;
-import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
-import com.dmtaiwan.alexander.rxcanibreathe.utilities.DividerItemDecoration;
+import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.DividerItemDecoration;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.settings;
+package com.dmtaiwan.alexander.taiwanaqi.settings;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
-import com.dmtaiwan.alexander.rxcanibreathe.R;
+import com.dmtaiwan.alexander.taiwanaqi.R;
 
 
 /**

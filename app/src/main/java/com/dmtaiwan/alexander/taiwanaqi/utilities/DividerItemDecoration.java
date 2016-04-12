@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.utilities;
+package com.dmtaiwan.alexander.taiwanaqi.utilities;
 
 import android.content.Context;
 import android.content.res.TypedArray;

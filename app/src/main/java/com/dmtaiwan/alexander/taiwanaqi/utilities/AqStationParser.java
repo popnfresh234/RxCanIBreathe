@@ -1,6 +1,6 @@
-package com.dmtaiwan.alexander.rxcanibreathe.utilities;
+package com.dmtaiwan.alexander.taiwanaqi.utilities;
 
-import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import org.json.JSONArray;
 import org.json.JSONException;

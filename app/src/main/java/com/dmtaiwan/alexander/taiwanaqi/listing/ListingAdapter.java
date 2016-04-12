@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.listing;
+package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.dmtaiwan.alexander.rxcanibreathe.R;
-import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
-import com.dmtaiwan.alexander.rxcanibreathe.utilities.Utilities;
+import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;

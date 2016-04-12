@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.models;
+package com.dmtaiwan.alexander.taiwanaqi.models;
 
 
 import android.os.Parcel;

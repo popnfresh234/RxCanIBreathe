@@ -1,11 +1,10 @@
-package com.dmtaiwan.alexander.rxcanibreathe.listing;
+package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,9 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.dmtaiwan.alexander.rxcanibreathe.R;
-import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
-import com.dmtaiwan.alexander.rxcanibreathe.settings.SettingsActivity;
+import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     public static final String LISTING_PRIMARY = "ListingPrimary";
     public static final String LISTING_SECONDARY = "ListingSecondary";
 
-    private FragmentPagerAdapter mPagerAdapter;
+    private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
     private Subscription mStationsSubscription;
 
@@ -112,6 +111,14 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
         ListingFragment secondaryFragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, 1);
         primaryFragment.setData(stations);
         secondaryFragment.setData(stations);
+        updateTabs();
+    }
+
+    private void updateTabs() {
+        TabLayout.Tab tab0 = mTabLayout.getTabAt(0);
+        TabLayout.Tab tab1 = mTabLayout.getTabAt(1);
+        tab0.setText(mPagerAdapter.getTabTitle(this, 0));
+        tab1.setText(mPagerAdapter.getTabTitle(this, 1));
     }
 
     @Override

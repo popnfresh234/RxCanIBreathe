@@ -1,6 +1,6 @@
-package com.dmtaiwan.alexander.rxcanibreathe.listing;
+package com.dmtaiwan.alexander.taiwanaqi.listing;
 
-import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import java.util.List;
 
