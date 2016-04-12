@@ -1,5 +1,6 @@
 package com.dmtaiwan.alexander.rxcanibreathe.listing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.dmtaiwan.alexander.rxcanibreathe.R;
 import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
+import com.dmtaiwan.alexander.rxcanibreathe.settings.SettingsActivity;
 
 import java.util.List;
 
@@ -94,6 +96,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 
