@@ -1,4 +1,4 @@
-package com.dmtaiwan.alexander.rxcanibreathe.utilities;
+package com.dmtaiwan.alexander.rxcanibreathe.listing;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dmtaiwan.alexander.rxcanibreathe.R;
 import com.dmtaiwan.alexander.rxcanibreathe.models.AQStation;
+import com.dmtaiwan.alexander.rxcanibreathe.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,16 +22,16 @@ import butterknife.ButterKnife;
 /**
  * Created by Alexander on 11/12/2015.
  */
-public class AQStationAdapter extends RecyclerView.Adapter<AQStationAdapter.ViewHolder> {
+public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHolder> {
 
-    private static final String LOG_TAG = AQStationAdapter.class.getSimpleName();
+    private static final String LOG_TAG = ListingAdapter.class.getSimpleName();
     private Context mContext;
     final private View mEmptyView;
     private RecyclerClickListener mListener;
     private List<AQStation> mStationList;
     private int mPage;
 
-    public AQStationAdapter(Context context, View emptyView, RecyclerClickListener listener, int page) {
+    public ListingAdapter(Context context, View emptyView, RecyclerClickListener listener, int page) {
         this.mContext = context;
         this.mEmptyView = emptyView;
         this.mListener = listener;

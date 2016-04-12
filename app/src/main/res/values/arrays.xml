@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_county_options">
+        <item>@string/pref_county_label_changhua_county</item>
+        <item>@string/pref_county_label_chiayi_city</item>
+        <item>@string/pref_county_label_chiayi_county</item>
+        <item>@string/pref_county_label_hsinchu_city</item>
+        <item>@string/pref_county_label_hsinchu_county</item>
+        <item>@string/pref_county_label_hualian_county</item>
+        <item>@string/pref_county_label_jinmen_county</item>
+        <item>@string/pref_county_label_kaohsiung_city</item>
+        <item>@string/pref_county_label_keelung_city</item>
+        <item>@string/pref_county_label_lianjiang_county</item>
+        <item>@string/pref_county_label_miaoli_county</item>
+        <item>@string/pref_county_label_nantou_county</item>
+        <item>@string/pref_county_label_newtaipei_city</item>
+        <item>@string/pref_county_label_penghu_county</item>
+        <item>@string/pref_county_label_pingdong_county</item>
+        <item>@string/pref_county_label_taichung_city</item>
+        <item>@string/pref_county_label_taidong_county</item>
+        <item>@string/pref_county_label_tainan_city</item>
+        <item>@string/pref_county_label_taipei_city</item>
+        <item>@string/pref_county_label_taouyuan_city</item>
+        <item>@string/pref_county_label_yilan_county</item>
+        <item>@string/pref_county_label_yunlin_county</item>
+    </string-array>
+
+    <string-array name="pref_county_values">
+        <item>@string/pref_county_changhua_county</item>
+        <item>@string/pref_county_chiayi_city</item>
+        <item>@string/pref_county_chiayi_county</item>
+        <item>@string/pref_county_hsinchu_city</item>
+        <item>@string/pref_county_hsinchu_county</item>
+        <item>@string/pref_county_hualian_county</item>
+        <item>@string/pref_county_jinmen_county</item>
+        <item>@string/pref_county_kaohsiung_city</item>
+        <item>@string/pref_county_keelung_city</item>
+        <item>@string/pref_county_lianjiang_county</item>
+        <item>@string/pref_county_miaoli_county</item>
+        <item>@string/pref_county_nantou_county</item>
+        <item>@string/pref_county_newtaipei_city</item>
+        <item>@string/pref_county_penghu_county</item>
+        <item>@string/pref_county_pingdong_county</item>
+        <item>@string/pref_county_taichung_city</item>
+        <item>@string/pref_county_taidong_county</item>
+        <item>@string/pref_county_tainan_city</item>
+        <item>@string/pref_county_taipei_city</item>
+        <item>@string/pref_county_taouyuan_city</item>
+        <item>@string/pref_county_yilan_county</item>
+        <item>@string/pref_county_yunlin_county</item>
+    </string-array>
+
+
+
+    <string-array name="pref_language_options">
+        <item>@string/pref_language_label_eng</item>
+        <item>@string/pref_language_label_zh</item>
+    </string-array>
+
+    <string-array name="pref_language_values">
+        <item>@string/pref_language_eng</item>
+        <item>@string/pref_language_zh</item>
+    </string-array>
+</resources>

@@ -19,6 +19,8 @@ import java.io.OutputStreamWriter;
  */
 public class Utilities {
     public static final String FILE_NAME = "epa.json";
+    public static final String API_URL = "http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=County&$skip=0&$top=1000&format=json";
+
 
 
     static public boolean doesFileExist(Context context) {
