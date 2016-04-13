@@ -1,5 +1,7 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.Context;
+
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.network.RequestGenerator;
 import com.dmtaiwan.alexander.taiwanaqi.network.RequestHandler;
@@ -18,8 +20,13 @@ import rx.functions.Func0;
 /**
  * Created by Alexander on 4/12/2016.
  */
-public class ListingInteractor implements IListingInteractor{
+public class ListingInteractor implements IListingInteractor {
 
+    private Context context;
+
+    public ListingInteractor(Context context) {
+        this.context = context;
+    }
 
     @Override
     public Observable<List<AQStation>> fetchStations() {
@@ -29,9 +36,11 @@ public class ListingInteractor implements IListingInteractor{
                 try {
                     return Observable.just(get());
                 } catch (Exception e) {
-                    return Observable.error(e);
+                    return handleException(e);
                 }
             }
+
+
 
             private List<AQStation> get() throws IOException, JSONException {
                 return fetch(Utilities.API_URL);
@@ -39,9 +48,23 @@ public class ListingInteractor implements IListingInteractor{
 
             private List<AQStation> fetch(String apiUrl) throws IOException, JSONException {
                 Request request = RequestGenerator.get(apiUrl);
-                String response = RequestHandler.request(request);
+                String response = RequestHandler.request(request, context);
                 return AqStationParser.parse(response);
+            }
+
+            private Observable<List<AQStation>> handleException(Exception e) {
+                if (Utilities.doesFileExist(context)) {
+                    try {
+                        return Observable.just(AqStationParser.parse(Utilities.readFromFile(context)));
+                    } catch (JSONException e1) {
+                        return Observable.error(e1);
+                    }
+                }else {
+                    return Observable.error(e);
+                }
             }
         });
     }
+
+
 }

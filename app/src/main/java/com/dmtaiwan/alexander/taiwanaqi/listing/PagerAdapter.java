@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class PagerAdapter extends FragmentPagerAdapter {
 
+    private List<AQStation> aqStations;
     private static final int NUM_ITEMS = 2;
     private Context mContext;
 
@@ -52,6 +54,15 @@ public class PagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        ListingFragment fragment = (ListingFragment) object;
+        if (fragment != null) {
+            fragment.updateFragment(aqStations);
+        }
+        return super.getItemPosition(object);
+    }
+
     public static String getTabTitle(Context context, int tab) {
         String languagePref = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_language), context.getString(R.string.pref_language_eng));
         switch (tab) {
@@ -84,5 +95,13 @@ public class PagerAdapter extends FragmentPagerAdapter {
             default:
                 return null;
         }
+    }
+
+    public void updateData(List<AQStation> stations) {
+        aqStations = stations;
+    }
+
+    public interface FragmentCallback {
+        void updateFragment(List<AQStation> stations);
     }
 }

@@ -1,5 +1,7 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.Context;
+
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import java.util.List;
@@ -18,9 +20,9 @@ public class ListingPresenter implements IListingPresenter {
     private IListingView mListingView;
     private IListingInteractor mListingInteractor;
 
-    public ListingPresenter(IListingView view) {
+    public ListingPresenter(IListingView view, Context context) {
         mListingView = view;
-        mListingInteractor = new ListingInteractor();
+        mListingInteractor = new ListingInteractor(context);
     }
     @Override
     public Subscription displayStations() {

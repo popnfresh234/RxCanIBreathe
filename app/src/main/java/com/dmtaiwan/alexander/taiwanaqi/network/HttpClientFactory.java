@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class HttpClientFactory {
     private static final Object LOCK = new Object();
-    private static final int TIMEOUT_IN_MS = 30000;
+    private static final int TIMEOUT_IN_MS = 10000;
 
     @GuardedBy("LOCK")
     private static OkHttpClient mOkHttpClient;

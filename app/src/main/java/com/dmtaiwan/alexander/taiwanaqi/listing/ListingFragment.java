@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Alexander on 4/12/2016.
  */
-public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener {
+public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener, PagerAdapter.FragmentCallback {
 
 
     private int mPageNumber;
@@ -65,5 +65,11 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     public void setData(List<AQStation> aqStations) {
         mAdapter.updateData(aqStations);
+    }
+
+
+    @Override
+    public void updateFragment(List<AQStation> stations) {
+        mAdapter.updateData(stations);
     }
 }

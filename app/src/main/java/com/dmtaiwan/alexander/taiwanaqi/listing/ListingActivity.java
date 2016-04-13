@@ -26,8 +26,6 @@ import rx.Subscription;
 public class ListingActivity extends AppCompatActivity implements IListingView{
 
     public static final String LOG_TAG = ListingActivity.class.getSimpleName();
-    public static final String LISTING_PRIMARY = "ListingPrimary";
-    public static final String LISTING_SECONDARY = "ListingSecondary";
 
     private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
@@ -55,7 +53,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
         setupViewPager();
-        mListingPresenter = new ListingPresenter(this);
+        mListingPresenter = new ListingPresenter(this, getApplicationContext());
     }
 
     @Override
@@ -107,10 +105,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     @Override
     public void showStations(List<AQStation> stations) {
         mProgressBar.setVisibility(View.INVISIBLE);
-        ListingFragment primaryFragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, 0);
-        ListingFragment secondaryFragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, 1);
-        primaryFragment.setData(stations);
-        secondaryFragment.setData(stations);
+        mPagerAdapter.updateData(stations);
+        mPagerAdapter.notifyDataSetChanged();
         updateTabs();
     }
 

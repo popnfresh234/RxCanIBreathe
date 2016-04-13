@@ -18,10 +18,9 @@ import java.io.OutputStreamWriter;
  * Created by Alexander on 4/12/2016.
  */
 public class Utilities {
-    public static final String FILE_NAME = "epa.json";
+
     public static final String API_URL = "http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=County&$skip=0&$top=1000&format=json";
-
-
+    public static final String FILE_NAME = "epa.json";
 
     static public boolean doesFileExist(Context context) {
         File file = context.getFileStreamPath(FILE_NAME);
@@ -30,7 +29,7 @@ public class Utilities {
 
     public static void writeToFile(String json, Context context) {
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(Utilities.FILE_NAME, Context.MODE_PRIVATE));
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE));
             outputStreamWriter.write(json);
             outputStreamWriter.close();
         } catch (FileNotFoundException e) {
@@ -40,10 +39,11 @@ public class Utilities {
         }
     }
 
+
     public static String readFromFile(Context context) {
         String json = "";
         try {
-            InputStream inputStream = context.openFileInput(Utilities.FILE_NAME);
+            InputStream inputStream = context.openFileInput(FILE_NAME);
             if (inputStream != null) {
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -62,7 +62,6 @@ public class Utilities {
         }
         return json;
     }
-
 
 
     public static int getTextColor(String aqi, Context context) {
