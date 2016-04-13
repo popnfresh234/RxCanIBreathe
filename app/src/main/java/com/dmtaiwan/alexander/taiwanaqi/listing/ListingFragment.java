@@ -1,5 +1,6 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,6 +28,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     private int mPageNumber;
     private ListingAdapter mAdapter;
+    private Callback mCallback;
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -50,6 +52,13 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         return rootView;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCallback = (Callback) context;
+        mCallback.onFragmentReady();
+    }
+
     private void setupAdapter() {
         mAdapter = new ListingAdapter(getActivity(), mEmptyView, this, mPageNumber);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -71,5 +80,9 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     @Override
     public void updateFragment(List<AQStation> stations) {
         mAdapter.updateData(stations);
+    }
+
+    public interface Callback {
+        public void onFragmentReady();
     }
 }

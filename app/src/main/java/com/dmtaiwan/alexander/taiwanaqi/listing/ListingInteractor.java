@@ -34,9 +34,9 @@ public class ListingInteractor implements IListingInteractor {
             @Override
             public Observable<List<AQStation>> call() {
                 try {
-                    return Observable.just(get());
+                    return Observable.just(AqStationParser.parse(Utilities.readFromFile(context)));
                 } catch (Exception e) {
-                    return handleException(e);
+                    return Observable.error(e);
                 }
             }
 

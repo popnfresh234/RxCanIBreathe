@@ -23,7 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscription;
 
-public class ListingActivity extends AppCompatActivity implements IListingView{
+public class ListingActivity extends AppCompatActivity implements IListingView, ListingFragment.Callback{
 
     public static final String LOG_TAG = ListingActivity.class.getSimpleName();
 
@@ -59,7 +59,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     @Override
     protected void onResume() {
         super.onResume();
-        mStationsSubscription = mListingPresenter.displayStations();
+        mPagerAdapter.notifyDataSetChanged();
+        updateTabs();
     }
 
     @Override
@@ -131,5 +132,10 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     @Override
     public void onStationClicked(AQStation aqStation) {
 
+    }
+
+    @Override
+    public void onFragmentReady() {
+        mStationsSubscription = mListingPresenter.displayStations();
     }
 }

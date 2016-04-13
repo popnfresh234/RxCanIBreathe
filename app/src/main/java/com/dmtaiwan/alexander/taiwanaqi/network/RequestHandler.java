@@ -28,7 +28,8 @@ public class RequestHandler {
             Utilities.writeToFile(body, context);
             return body;
         } else {
-           throw new RuntimeException(response.message());
+            Log.i("HANDLER EXCEPTION", "exception");
+            throw new RuntimeException(response.message());
         }
     }
 
