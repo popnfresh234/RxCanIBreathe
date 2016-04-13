@@ -99,6 +99,10 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
             return true;
         }
 
+        if (id == R.id.action_refresh) {
+            mStationsSubscription = mListingPresenter.displayStations();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

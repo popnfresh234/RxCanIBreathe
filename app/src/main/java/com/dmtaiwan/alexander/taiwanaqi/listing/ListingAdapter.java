@@ -3,7 +3,6 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,8 +54,6 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
 
         int id = mContext.getResources().getIdentifier("station" + String.valueOf(aqStation.getSiteNumber()), "string", mContext.getPackageName());
         String name = mContext.getResources().getString(id);
-        Log.i(LOG_TAG, name);
-        Log.i(LOG_TAG, String.valueOf(aqStation.getSiteNumber()));
         holder.mStationNameEng.setText(mContext.getResources().getString(id));
 
         holder.mWindSpeed.setText(aqStation.getFormattedWindSpeed());
@@ -105,9 +102,9 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
     }
 
     public void updateData(List<AQStation> stationList) {
-        Log.i(LOG_TAG, "updating data");
+
         mStationList = sortStations(stationList, mPage);
-        Log.i("stationList", mStationList.size() + "");
+
         notifyDataSetChanged();
         mEmptyView.setVisibility(mStationList.size() == 0 ? View.VISIBLE : View.GONE);
     }
@@ -121,8 +118,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
         List<AQStation> sortedStations = new ArrayList<>();
         if (page == 0) {
             String county = PreferenceManager.getDefaultSharedPreferences(mContext).getString(mContext.getString(R.string.pref_key_county), mContext.getString(R.string.pref_county_taipei_city));
-            for (AQStation aqStation : aqStationList) {
-                Log.i(LOG_TAG, aqStation.getCounty());
+            for (AQStation aqStation : aqStationList) {;
                 if (aqStation.getCounty().equals(county)) {
                     sortedStations.add(aqStation);
                 }

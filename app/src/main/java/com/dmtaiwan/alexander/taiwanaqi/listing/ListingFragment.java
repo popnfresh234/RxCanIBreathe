@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         View rootView = inflater.inflate(R.layout.fragment_listing, container, false);
         ButterKnife.bind(this, rootView);
         setupAdapter();
+        setRetainInstance(true);
         return rootView;
     }
 
@@ -56,7 +58,15 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     public void onAttach(Context context) {
         super.onAttach(context);
         mCallback = (Callback) context;
-        mCallback.onFragmentReady();
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.i("FRAG", "Page number: " + mPageNumber);
+        if (mPageNumber == 0) {
+            mCallback.onFragmentReady();
+        }
     }
 
     private void setupAdapter() {
