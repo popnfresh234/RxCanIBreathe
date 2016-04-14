@@ -1,15 +1,13 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.Context;
+import android.util.Log;
 
-import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
-
-import java.util.List;
+import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
 import rx.schedulers.Schedulers;
 
 /**
@@ -25,15 +23,11 @@ public class ListingPresenter implements IListingPresenter {
         mListingInteractor = new ListingInteractor(context);
     }
     @Override
-    public Subscription displayStations() {
-        return mListingInteractor.fetchStations().subscribeOn(Schedulers.io())
+    public Subscription displayCacheData() {
+        return mListingInteractor.getCacheData()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mListingView.loadingStarted();
-                    }
-                }).subscribe(new Subscriber<List<AQStation>>() {
+                .subscribe(new Subscriber<RxResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -41,12 +35,38 @@ public class ListingPresenter implements IListingPresenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        mListingView.loadingFailed(e.getMessage());
+                        Log.i("CACHE FAILED", "CACHE FAILED");
+                        mListingView.cacheFailed(e.getMessage());
                     }
 
                     @Override
-                    public void onNext(List<AQStation> stations) {
-                        mListingView.showStations(stations);
+                    public void onNext(RxResponse rxResponse) {
+                        mListingView.showStations(rxResponse);
+                    }
+                });
+    }
+
+    @Override
+    public Subscription displayNetworkData() {
+        return mListingInteractor.getNetworkData()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RxResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("NETWORK FAILED", "NETWORK FAILED");
+
+                        mListingView.networkFailed(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(RxResponse rxResponse) {
+                        mListingView.showStations(rxResponse);
                     }
                 });
     }

@@ -14,10 +14,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
-import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,7 +27,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
     private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
-    private Subscription mStationsSubscription;
+    private Subscription mSubscription;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -65,8 +63,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
     @Override
     protected void onDestroy() {
-        if (mStationsSubscription != null && !mStationsSubscription.isUnsubscribed()) {
-            mStationsSubscription.unsubscribe();
+        if (mSubscription != null && !mSubscription.isUnsubscribed()) {
+            mSubscription.unsubscribe();
         }
 
         super.onDestroy();
@@ -100,20 +98,14 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         }
 
         if (id == R.id.action_refresh) {
-            mStationsSubscription = mListingPresenter.displayStations();
+            mSubscription = mListingPresenter.displayCacheData();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    @Override
-    public void showStations(List<AQStation> stations) {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        mPagerAdapter.updateData(stations);
-        mPagerAdapter.notifyDataSetChanged();
-        updateTabs();
-    }
+
 
     private void updateTabs() {
         TabLayout.Tab tab0 = mTabLayout.getTabAt(0);
@@ -123,23 +115,49 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     }
 
     @Override
+    public void showStations(RxResponse rxResponse) {
+        handleResponse(rxResponse);
+    }
+
+    private void handleResponse(RxResponse rxResponse) {
+        switch (rxResponse.getResponseType()) {
+            case RxResponse.CACHE_CALL:
+                mPagerAdapter.updateData(rxResponse.getAqStations());
+                mPagerAdapter.notifyDataSetChanged();
+                mSubscription = mListingPresenter.displayNetworkData();
+                break;
+            case RxResponse.NETWORK_CALL:
+                makeSnackBar("Update Successful!");
+                mPagerAdapter.updateData(rxResponse.getAqStations());
+                mPagerAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
+
+
+    @Override
     public void loadingStarted() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void loadingFailed(String errorMessage) {
-        mProgressBar.setVisibility(View.INVISIBLE);
-        Snackbar.make(mCoordinatorLayout, errorMessage, Snackbar.LENGTH_LONG).show();
+    public void networkFailed(String error) {
+        makeSnackBar(error);
     }
 
     @Override
-    public void onStationClicked(AQStation aqStation) {
-
+    public void cacheFailed(String error) {
+        mSubscription = mListingPresenter.displayNetworkData();
     }
+
 
     @Override
     public void onFragmentReady() {
-        mStationsSubscription = mListingPresenter.displayStations();
+        mSubscription = mListingPresenter.displayCacheData();
+    }
+
+    private void makeSnackBar(String message) {
+        Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 }

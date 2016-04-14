@@ -3,6 +3,7 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
         int id = mContext.getResources().getIdentifier("station" + String.valueOf(aqStation.getSiteNumber()), "string", mContext.getPackageName());
         String name = mContext.getResources().getString(id);
         holder.mStationNameEng.setText(mContext.getResources().getString(id));
-
+        Log.i(aqStation.getSiteName(), " " + name + " : " + aqStation.getSiteNumber());
         holder.mWindSpeed.setText(aqStation.getFormattedWindSpeed());
         holder.mTime.setText(aqStation.getFormattedTime());
     }

@@ -1,18 +1,16 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
-import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
-
-import java.util.List;
+import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 
 /**
  * Created by Alexander on 4/12/2016.
  */
 public interface IListingView {
-    void showStations(List<AQStation> stations);
+    void showStations(RxResponse rxResponse);
 
     void loadingStarted();
 
-    void loadingFailed(String errorMessage);
+    void networkFailed(String error);
 
-    void onStationClicked(AQStation aqStation);
+    void cacheFailed(String error);
 }

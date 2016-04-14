@@ -1,5 +1,7 @@
 package com.dmtaiwan.alexander.taiwanaqi.utilities;
 
+import android.util.Log;
+
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import org.json.JSONArray;
@@ -14,7 +16,7 @@ import java.util.List;
  * Created by Alexander on 4/12/2016.
  */
 public class AqStationParser {
-    private static final String SITE_MAME = "SiteName";
+    private static final String SITE_NAME = "SiteName";
     private static final String COUNTY = "County";
     private static final String PM25 = "PM2.5";
     private static final String PUBLISH_TIME = "PublishTime";
@@ -35,8 +37,9 @@ public class AqStationParser {
 
                 aqStation.setSiteNumber(i);
 
-                if (!jsonStation.isNull(SITE_MAME)) {
-                    aqStation.setSiteName(jsonStation.getString(SITE_MAME));
+                if (!jsonStation.isNull(SITE_NAME)) {
+                    aqStation.setSiteName(jsonStation.getString(SITE_NAME));
+                    Log.i(aqStation.getSiteName(), " : " + aqStation.getSiteNumber());
                 }
 
                 if (!jsonStation.isNull(COUNTY)) {
