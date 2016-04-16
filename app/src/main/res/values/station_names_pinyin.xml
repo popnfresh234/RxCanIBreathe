@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="station0" translatable="false">jīlóng </string>
+    <string name="station1" translatable="false">xīzhǐ </string>
+    <string name="station2" translatable="false">wànlǐ </string>
+    <string name="station3" translatable="false">xīndiàn </string>
+    <string name="station4" translatable="false">tǔ chéng </string>
+    <string name="station5" translatable="false">bǎnqiáo </string>
+    <string name="station6" translatable="false">xīn zhuāng </string>
+    <string name="station7" translatable="false">cài liáo </string>
+    <string name="station8" translatable="false">línkǒu </string>
+    <string name="station9" translatable="false">dànshuǐ </string>
+    <string name="station10" translatable="false">shì lín </string>
+    <string name="station11" translatable="false">zhōngshān </string>
+    <string name="station12" translatable="false">wàn huá </string>
+    <string name="station13" translatable="false">gǔ tíng </string>
+    <string name="station14" translatable="false">sōngshān </string>
+    <string name="station15" translatable="false">dàtóng </string>
+    <string name="station16" translatable="false">táoyuán </string>
+    <string name="station17" translatable="false">dàyuán </string>
+    <string name="station18" translatable="false">guānyīn </string>
+    <string name="station19" translatable="false">píng zhèn </string>
+    <string name="station20" translatable="false">lóngtán </string>
+    <string name="station21" translatable="false">hú kǒu </string>
+    <string name="station22" translatable="false">zhú dōng </string>
+    <string name="station23" translatable="false">xīnzhú </string>
+    <string name="station24" translatable="false">tóu fèn </string>
+    <string name="station25" translatable="false">miáolì </string>
+    <string name="station26" translatable="false">sānyì </string>
+    <string name="station27" translatable="false">fēngyuán </string>
+    <string name="station28" translatable="false">shā lù </string>
+    <string name="station29" translatable="false">dàlǐ </string>
+    <string name="station30" translatable="false">zhōngmíng </string>
+    <string name="station31" translatable="false">xī tún </string>
+    <string name="station32" translatable="false">zhānghuà </string>
+    <string name="station33" translatable="false">xiàn xī </string>
+    <string name="station34" translatable="false">èr lín </string>
+    <string name="station35" translatable="false">nántóu </string>
+    <string name="station36" translatable="false">dòu liù </string>
+    <string name="station37" translatable="false">lún bèi </string>
+    <string name="station38" translatable="false">xīngǎng </string>
+    <string name="station39" translatable="false">pǔ zi </string>
+    <string name="station40" translatable="false">tái xī </string>
+    <string name="station41" translatable="false">jiāyì </string>
+    <string name="station42" translatable="false">xīnyíng </string>
+    <string name="station43" translatable="false">shàn huà </string>
+    <string name="station44" translatable="false">ānnán </string>
+    <string name="station45" translatable="false">táinán </string>
+    <string name="station46" translatable="false">měinóng </string>
+    <string name="station47" translatable="false">qiáotóu </string>
+    <string name="station48" translatable="false">rén wǔ </string>
+    <string name="station49" translatable="false">fèng shān </string>
+    <string name="station50" translatable="false">dà liáo </string>
+    <string name="station51" translatable="false">lín yuán </string>
+    <string name="station52" translatable="false">nán zǐ </string>
+    <string name="station53" translatable="false">zuǒ yíng </string>
+    <string name="station54" translatable="false">qián jīn </string>
+    <string name="station55" translatable="false">qián zhèn </string>
+    <string name="station56" translatable="false">xiǎogǎng </string>
+    <string name="station57" translatable="false">píng dōng </string>
+    <string name="station58" translatable="false">cháozhōu </string>
+    <string name="station59" translatable="false">héng chūn </string>
+    <string name="station60" translatable="false">tái dōng </string>
+    <string name="station61" translatable="false">huālián </string>
+    <string name="station62" translatable="false">yángmíng </string>
+    <string name="station63" translatable="false">yílán </string>
+    <string name="station64" translatable="false">dōngshān </string>
+    <string name="station65" translatable="false">sānchóng </string>
+    <string name="station66" translatable="false">zhōng lì </string>
+    <string name="station67" translatable="false">zhúshān </string>
+    <string name="station68" translatable="false">yǒnghé </string>
+    <string name="station69" translatable="false">fùxīng </string>
+    <string name="station70" translatable="false">bùlǐ </string>
+    <string name="station71" translatable="false">mǎzǔ </string>
+    <string name="station72" translatable="false">jīnmén </string>
+    <string name="station73" translatable="false">mǎgōng </string>
+    <string name="station74" translatable="false">guānshān </string>
+    <string name="station75" translatable="false">mài liáo </string>
+</resources>

@@ -3,7 +3,6 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,11 @@ import android.widget.TextView;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.PinyinHandler;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.Bind;
@@ -53,10 +54,11 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
         holder.mPm25Text.setBackground(Utilities.getAqiBackground(aqStation.getAQI(), mContext));
         holder.mStationName.setText(aqStation.getSiteName());
 
-        int id = mContext.getResources().getIdentifier("station" + String.valueOf(aqStation.getSiteNumber()), "string", mContext.getPackageName());
-        String name = mContext.getResources().getString(id);
-        holder.mStationNameEng.setText(mContext.getResources().getString(id));
-        Log.i(aqStation.getSiteName(), " " + name + " : " + aqStation.getSiteNumber());
+        HashMap nameMap = PinyinHandler.fetchMap(mContext);
+        String engName = (String) nameMap.get(aqStation.getSiteName());
+
+        holder.mStationNameEng.setText(engName);
+
         holder.mWindSpeed.setText(aqStation.getFormattedWindSpeed());
         holder.mTime.setText(aqStation.getFormattedTime());
     }
