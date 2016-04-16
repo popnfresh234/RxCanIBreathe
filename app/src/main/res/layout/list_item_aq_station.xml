@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/pm25"
