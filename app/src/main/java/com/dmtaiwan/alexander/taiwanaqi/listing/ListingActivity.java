@@ -2,6 +2,7 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -31,6 +32,9 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
+
+    @Bind(R.id.appbar)
+    AppBarLayout mAppBar;
 
     @Bind(R.id.toolbar_progress)
     ProgressBar mProgressBar;

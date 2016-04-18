@@ -30,6 +30,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     private int mPageNumber;
     private ListingAdapter mAdapter;
     private Callback mCallback;
+    private LinearLayoutManager mLayoutManager;
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -71,8 +72,8 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     private void setupAdapter() {
         mAdapter = new ListingAdapter(getActivity(), mEmptyView, this, mPageNumber);
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(llm);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -87,6 +88,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     }
 
 
+
     @Override
     public void updateFragment(List<AQStation> stations) {
         mAdapter.updateData(stations);
@@ -94,5 +96,6 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     public interface Callback {
         public void onFragmentReady();
+
     }
 }

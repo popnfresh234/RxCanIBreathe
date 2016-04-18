@@ -105,9 +105,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
     }
 
     public void updateData(List<AQStation> stationList) {
-
         mStationList = sortStations(stationList, mPage);
-
         notifyDataSetChanged();
         mEmptyView.setVisibility(mStationList.size() == 0 ? View.VISIBLE : View.GONE);
     }
