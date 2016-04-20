@@ -17,12 +17,13 @@ import android.widget.ProgressBar;
 import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscription;
 
-public class ListingActivity extends AppCompatActivity implements IListingView, ListingFragment.Callback{
+public class ListingActivity extends AppCompatActivity implements IListingView, ListingFragment.Callback {
 
     public static final String LOG_TAG = ListingActivity.class.getSimpleName();
 
@@ -56,13 +57,17 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         setSupportActionBar(mToolbar);
         setupViewPager();
         mListingPresenter = new ListingPresenter(this, getApplicationContext());
+        if (savedInstanceState == null) {
+            mSubscription = mListingPresenter.displayCacheData();
+        }
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mPagerAdapter.notifyDataSetChanged();
-        updateTabs();
+
     }
 
     @Override
@@ -97,7 +102,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent intent = new Intent(this, SettingsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 111);
             return true;
         }
 
@@ -107,8 +112,6 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     private void updateTabs() {
@@ -139,7 +142,6 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     }
 
 
-
     @Override
     public void loadingStarted() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -158,10 +160,18 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
     @Override
     public void onFragmentReady() {
-        mSubscription = mListingPresenter.displayCacheData();
+        mPagerAdapter.notifyDataSetChanged();
     }
 
     private void makeSnackBar(String message) {
         Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Utilities.RESULT_SETTING_CHANGED) {
+            mPagerAdapter.notifyDataSetChanged();
+        }
     }
 }

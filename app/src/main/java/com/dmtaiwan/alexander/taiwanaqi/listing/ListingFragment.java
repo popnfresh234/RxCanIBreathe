@@ -31,6 +31,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     private ListingAdapter mAdapter;
     private Callback mCallback;
     private LinearLayoutManager mLayoutManager;
+    private List<AQStation> mAqStations;
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -53,6 +54,14 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         setupAdapter();
         setRetainInstance(true);
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAqStations != null) {
+            mAdapter.updateData(mAqStations);
+        }
     }
 
     @Override
@@ -84,6 +93,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     }
 
     public void setData(List<AQStation> aqStations) {
+        mAqStations = aqStations;
         mAdapter.updateData(aqStations);
     }
 
@@ -91,6 +101,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     @Override
     public void updateFragment(List<AQStation> stations) {
+        mAqStations = stations;
         mAdapter.updateData(stations);
     }
 

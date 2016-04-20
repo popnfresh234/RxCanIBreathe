@@ -8,6 +8,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 
 /**
@@ -51,15 +52,18 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_key_county))) {
             //Language has been changed
+            setResult(Utilities.RESULT_SETTING_CHANGED);
             finish();
         }
 
         if (key.equals(getString(R.string.pref_key_secondary_county))) {
             //Language has been changed
+            setResult(Utilities.RESULT_SETTING_CHANGED);
             finish();
         }
 
         if (key.equals(getString(R.string.pref_key_language))) {
+            setResult(Utilities.RESULT_SETTING_CHANGED);
             //Language has been changed
         }
     }
