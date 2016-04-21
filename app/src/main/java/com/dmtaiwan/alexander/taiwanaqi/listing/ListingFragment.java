@@ -14,17 +14,22 @@ import android.widget.TextView;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.DividerItemDecoration;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Alexander on 4/12/2016.
  */
-public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener, PagerAdapter.FragmentCallback {
+public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener{
 
 
     private int mPageNumber;
@@ -77,6 +82,25 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         if (mPageNumber == 0) {
             mCallback.onFragmentReady();
         }
+        mCallback.getObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<RxResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(RxResponse rxResponse) {
+                        Log.i("Page: " + mPageNumber, "Got data: " + rxResponse.getAqStations().size());
+                    }
+                });
     }
 
     private void setupAdapter() {
@@ -98,15 +122,9 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     }
 
 
-
-    @Override
-    public void updateFragment(List<AQStation> stations) {
-        mAqStations = stations;
-        mAdapter.updateData(stations);
-    }
-
     public interface Callback {
-        public void onFragmentReady();
+        void onFragmentReady();
 
+        Observable getObservable();
     }
 }

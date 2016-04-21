@@ -21,6 +21,7 @@ import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
 import rx.Subscription;
 
 public class ListingActivity extends AppCompatActivity implements IListingView, ListingFragment.Callback {
@@ -30,6 +31,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
     private Subscription mSubscription;
+    private Observable mObservable;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -115,10 +117,10 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
 
     private void updateTabs() {
-        TabLayout.Tab tab0 = mTabLayout.getTabAt(0);
-        TabLayout.Tab tab1 = mTabLayout.getTabAt(1);
-        tab0.setText(mPagerAdapter.getTabTitle(this, 0));
-        tab1.setText(mPagerAdapter.getTabTitle(this, 1));
+//        TabLayout.Tab tab0 = mTabLayout.getTabAt(0);
+//        TabLayout.Tab tab1 = mTabLayout.getTabAt(1);
+//        tab0.setText(mPagerAdapter.getTabTitle(this, 0));
+//        tab1.setText(mPagerAdapter.getTabTitle(this, 1));
     }
 
     @Override
@@ -129,16 +131,20 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     private void handleResponse(RxResponse rxResponse) {
         switch (rxResponse.getResponseType()) {
             case RxResponse.CACHE_CALL:
-                mPagerAdapter.updateData(rxResponse.getAqStations());
-                mPagerAdapter.notifyDataSetChanged();
+                //TODO Update data
                 mSubscription = mListingPresenter.displayNetworkData();
+                mObservable = createObservable(rxResponse);
                 break;
             case RxResponse.NETWORK_CALL:
+                //TODO Update data
+                mObservable = createObservable(rxResponse);
                 makeSnackBar("Update Successful!");
-                mPagerAdapter.updateData(rxResponse.getAqStations());
-                mPagerAdapter.notifyDataSetChanged();
                 break;
         }
+    }
+
+    private Observable createObservable(RxResponse rxResponse) {
+        return Observable.defer(() -> Observable.just(rxResponse));
     }
 
 
@@ -158,11 +164,6 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     }
 
 
-    @Override
-    public void onFragmentReady() {
-        mPagerAdapter.notifyDataSetChanged();
-    }
-
     private void makeSnackBar(String message) {
         Snackbar.make(mCoordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
@@ -171,7 +172,16 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Utilities.RESULT_SETTING_CHANGED) {
-            mPagerAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void onFragmentReady() {
+        //TODO Fragment has been created
+    }
+
+    @Override
+    public Observable getObservable() {
+        return mObservable;
     }
 }

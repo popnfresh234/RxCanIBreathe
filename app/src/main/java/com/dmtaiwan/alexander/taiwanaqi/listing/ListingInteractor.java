@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.List;
 
 import rx.Observable;
+import rx.functions.Func0;
 
 /**
  * Created by Alexander on 4/12/2016.
@@ -48,11 +49,14 @@ public class ListingInteractor implements IListingInteractor {
 
     @Override
     public Observable<RxResponse> getCacheData() {
-        return Observable.defer(() -> {
-            try {
-                return Observable.just(getDisk(context));
-            } catch (Exception e) {
-                return Observable.error(e);
+        return Observable.defer(new Func0<Observable<RxResponse>>() {
+            @Override
+            public Observable<RxResponse> call() {
+                try {
+                    return Observable.just(ListingInteractor.this.getDisk(context));
+                } catch (Exception e) {
+                    return Observable.error(e);
+                }
             }
         });
     }

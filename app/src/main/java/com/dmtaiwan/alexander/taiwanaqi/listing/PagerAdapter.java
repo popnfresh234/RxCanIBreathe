@@ -54,15 +54,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
         }
     }
 
-    @Override
-    public int getItemPosition(Object object) {
-        ListingFragment fragment = (ListingFragment) object;
-        if (fragment != null && aqStations!= null) {
-            fragment.updateFragment(aqStations);
-        }
-        return super.getItemPosition(object);
-    }
-
     public static String getTabTitle(Context context, int tab) {
         String languagePref = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_language), context.getString(R.string.pref_language_eng));
         switch (tab) {
@@ -95,13 +86,5 @@ public class PagerAdapter extends FragmentPagerAdapter {
             default:
                 return null;
         }
-    }
-
-    public void updateData(List<AQStation> stations) {
-        aqStations = stations;
-    }
-
-    public interface FragmentCallback {
-        void updateFragment(List<AQStation> stations);
     }
 }
