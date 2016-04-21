@@ -1,9 +1,12 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
-import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,30 +16,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
-import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.DividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Alexander on 4/12/2016.
  */
-public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener{
+public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
 
     private int mPageNumber;
     private ListingAdapter mAdapter;
-    private Callback mCallback;
     private LinearLayoutManager mLayoutManager;
-    private List<AQStation> mAqStations;
+
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -62,45 +61,15 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (mAqStations != null) {
-            mAdapter.updateData(mAqStations);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCallback = (Callback) context;
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Log.i("FRAG", "Page number: " + mPageNumber);
-        if (mPageNumber == 0) {
-            mCallback.onFragmentReady();
-        }
-        mCallback.getObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RxResponse>() {
-                    @Override
-                    public void onCompleted() {
+        getActivity().getSupportLoaderManager().initLoader(mPageNumber, null, this);
+    }
 
-                    }
+    @Override
+    public void onResume() {
+        super.onResume();
 
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(RxResponse rxResponse) {
-                        Log.i("Page: " + mPageNumber, "Got data: " + rxResponse.getAqStations().size());
-                    }
-                });
     }
 
     private void setupAdapter() {
@@ -116,15 +85,40 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     }
 
-    public void setData(List<AQStation> aqStations) {
-        mAqStations = aqStations;
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(getActivity(), AqStationContract.CONTENT_URI, AqStationContract.STATION_COLUMNS, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        data.moveToFirst();
+        Log.i("onLoadFinished", "Size: " + data.getCount());
+        List<AQStation>aqStations =new ArrayList<>();
+        while (data.moveToNext()) {
+            //Create list of AqStations to populate adapter
+            AQStation aqStation = new AQStation();
+            aqStation.setSiteNumber(data.getInt(AqStationContract.STATION_ID_INT));
+            aqStation.setSiteName(data.getString(AqStationContract.SITE_NAME_INT));
+            aqStation.setCounty(data.getString(AqStationContract.COUNTY_INT));
+            aqStation.setPM25(data.getString(AqStationContract.PM25_INT));
+            aqStation.setAQI(data.getString(AqStationContract.AQI_INT));
+            aqStation.setWindSpeed(data.getString(AqStationContract.WIND_SPEED_INT));
+            aqStation.setFormattedWindSpeed(data.getString(AqStationContract.FORMATTED_WIND_SPEED_INT));
+            aqStation.setWindDirec(data.getString(AqStationContract.WIND_DIRECTION_INT));
+            aqStation.setPublishTime(data.getString(AqStationContract.PUBLISH_TIME_INT));
+            aqStation.setFormattedTime(data.getString(AqStationContract.FORMATTED_TIME_INT));
+            aqStations.add(aqStation);
+        }
         mAdapter.updateData(aqStations);
     }
 
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
-    public interface Callback {
-        void onFragmentReady();
+    }
 
-        Observable getObservable();
+    public void restartLoader() {
+        getActivity().getSupportLoaderManager().restartLoader(mPageNumber, null, this);
     }
 }

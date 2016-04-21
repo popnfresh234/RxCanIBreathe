@@ -9,6 +9,4 @@ import rx.Observable;
  */
 public interface IListingInteractor {
     Observable<RxResponse> getNetworkData();
-
-    Observable<RxResponse> getCacheData();
 }

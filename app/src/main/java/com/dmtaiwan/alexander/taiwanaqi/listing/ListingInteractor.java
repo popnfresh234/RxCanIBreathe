@@ -1,9 +1,11 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
-import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
 import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.network.HttpClientFactory;
 import com.dmtaiwan.alexander.taiwanaqi.network.RequestGenerator;
@@ -16,10 +18,9 @@ import com.squareup.okhttp.Response;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Vector;
 
 import rx.Observable;
-import rx.functions.Func0;
 
 /**
  * Created by Alexander on 4/12/2016.
@@ -47,28 +48,6 @@ public class ListingInteractor implements IListingInteractor {
 
     }
 
-    @Override
-    public Observable<RxResponse> getCacheData() {
-        return Observable.defer(new Func0<Observable<RxResponse>>() {
-            @Override
-            public Observable<RxResponse> call() {
-                try {
-                    return Observable.just(ListingInteractor.this.getDisk(context));
-                } catch (Exception e) {
-                    return Observable.error(e);
-                }
-            }
-        });
-    }
-
-    private RxResponse getDisk(Context context) throws JSONException {
-        if (Utilities.doesFileExist(context)) {
-            String json = Utilities.readFromFile(context);
-            List<AQStation> stations = AqStationParser.parse(json);
-            return new RxResponse(RxResponse.CACHE_CALL, stations);
-        } else throw new RuntimeException("No local cache data available");
-    }
-
     private RxResponse getNetwork(Context context) throws JSONException, IOException {
         Request request = RequestGenerator.get(Utilities.API_URL);
         OkHttpClient client = HttpClientFactory.getClient();
@@ -85,12 +64,28 @@ public class ListingInteractor implements IListingInteractor {
             } catch (IOException e) {
                 throw e;
             }
-            Utilities.writeToFile(json, context);
-            List<AQStation> stations = AqStationParser.parse(json);
-            return new RxResponse(RxResponse.NETWORK_CALL, stations);
+            Vector<ContentValues> contentValuesVector = AqStationParser.parse(json);
+            if (contentValuesVector.size() > 0) {
+                writeToDatabase(contentValuesVector);
+            }
+
+
+
+
+            return new RxResponse(RxResponse.NETWORK_CALL, null);
         } else {
             Log.i("HTTP ERROR CODE", "CODE : " + response.code());
             throw new RuntimeException("Error: " + response.code());
         }
+    }
+
+    private void writeToDatabase(Vector<ContentValues> contentValuesVector) {
+        context.getContentResolver().delete(AqStationContract.CONTENT_URI, null, null);
+        ContentValues[] contentValuesArray = new ContentValues[contentValuesVector.size()];
+        contentValuesVector.toArray(contentValuesArray);
+        context.getContentResolver().bulkInsert(AqStationContract.CONTENT_URI, contentValuesArray);
+        //Test
+        Cursor cursor = context.getContentResolver().query(AqStationContract.CONTENT_URI, null, null, null, null);
+
     }
 }

@@ -1,16 +1,15 @@
 package com.dmtaiwan.alexander.taiwanaqi.utilities;
 
-import android.util.Log;
+import android.content.ContentValues;
 
-import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
+import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 
 /**
  * Created by Alexander on 4/12/2016.
@@ -25,50 +24,55 @@ public class AqStationParser {
 
     private static final DecimalFormat mDecimalFormat = new DecimalFormat("0.#");
 
-    public static List<AQStation> parse(String json) throws JSONException {
-        List<AQStation> aqStations = new ArrayList<>();
+    public static Vector<ContentValues> parse(String json) throws JSONException {
+
 
         JSONArray jsonArray = new JSONArray(json);
-
+        Vector<ContentValues> contentValuesVector = new Vector<ContentValues>(jsonArray.length());
         if (jsonArray.length() > 0) {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonStation = jsonArray.getJSONObject(i);
-                AQStation aqStation = new AQStation();
 
-                aqStation.setSiteNumber(i);
+                ContentValues stationValues = new ContentValues();
+                stationValues.put(AqStationContract.STATION_ID, i);
+
 
                 if (!jsonStation.isNull(SITE_NAME)) {
-                    aqStation.setSiteName(jsonStation.getString(SITE_NAME));
-                    Log.i(aqStation.getSiteName(), " : " + aqStation.getSiteNumber());
+                    stationValues.put(AqStationContract.SITE_NAME, jsonStation.getString(SITE_NAME));
+
                 }
 
                 if (!jsonStation.isNull(COUNTY)) {
-                    aqStation.setCounty(jsonStation.getString(COUNTY));
+                    stationValues.put(AqStationContract.COUNTY, jsonStation.getString(COUNTY));
                 }
 
                 if (!jsonStation.isNull(PM25)) {
-                    aqStation.setPM25(jsonStation.getString(PM25));
-                    aqStation.setAQI(aqiCalc(jsonStation.getString(PM25)));
-                }
-
-                if (!jsonStation.isNull(PUBLISH_TIME)) {
-                    aqStation.setPublishTime(jsonStation.getString(PUBLISH_TIME));
-                    aqStation.setFormattedTime(formatTime(jsonStation.getString(PUBLISH_TIME)));
+                    stationValues.put(AqStationContract.PM25, jsonStation.getString(PM25));
+                   stationValues.put(AqStationContract.AQI, aqiCalc(jsonStation.getString(PM25)));
                 }
 
                 if (!jsonStation.isNull(WIND_SPEED)) {
-                    aqStation.setWindSpeed(jsonStation.getString(WIND_SPEED));
-                    aqStation.setFormattedWindSpeed(formatWindSpeed(jsonStation.getString(WIND_SPEED)));
+                    stationValues.put(AqStationContract.WIND_SPEED, jsonStation.getString(WIND_SPEED));
+                    stationValues.put(AqStationContract.FORMATTED_WIND_SPEED, formatWindSpeed(jsonStation.getString(WIND_SPEED)));
                 }
 
                 if (!jsonStation.isNull(WIND_DIRECTION)) {
-                    aqStation.setWindDirec(jsonStation.getString(WIND_DIRECTION));
+                    stationValues.put(AqStationContract.WIND_DIRECTION, jsonStation.getString(WIND_DIRECTION));
                 }
 
-                aqStations.add(aqStation);
+
+                if (!jsonStation.isNull(PUBLISH_TIME)) {
+                    stationValues.put(AqStationContract.PUBLISH_TIME, jsonStation.getString(PUBLISH_TIME));
+                    stationValues.put(AqStationContract.FORMATTED_TIME, formatTime(jsonStation.getString(PUBLISH_TIME)));
+                }
+
+
+
+
+                contentValuesVector.add(stationValues);
             }
         }
-        return aqStations;
+        return contentValuesVector;
     }
 
     private final static String aqiCalc(String pm25String) {

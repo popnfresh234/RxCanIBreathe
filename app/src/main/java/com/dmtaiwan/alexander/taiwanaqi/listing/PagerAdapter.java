@@ -37,6 +37,16 @@ public class PagerAdapter extends FragmentPagerAdapter {
         }
     }
 
+
+    @Override
+    public int getItemPosition(Object object) {
+        ListingFragment fragment = (ListingFragment) object;
+        if (fragment != null ){
+            fragment.restartLoader();
+        }
+        return super.getItemPosition(object);
+    }
+
     @Override
     public int getCount() {
         return NUM_ITEMS;

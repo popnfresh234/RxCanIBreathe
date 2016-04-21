@@ -22,32 +22,10 @@ public class ListingPresenter implements IListingPresenter {
         mListingView = view;
         mListingInteractor = new ListingInteractor(context);
     }
-    @Override
-    public Subscription displayCacheData() {
-        return mListingInteractor.getCacheData()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RxResponse>() {
-                    @Override
-                    public void onCompleted() {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.i("CACHE FAILED", "CACHE FAILED");
-                        mListingView.cacheFailed(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(RxResponse rxResponse) {
-                        mListingView.showStations(rxResponse);
-                    }
-                });
-    }
 
     @Override
-    public Subscription displayNetworkData() {
+    public Subscription fetchData() {
         return mListingInteractor.getNetworkData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

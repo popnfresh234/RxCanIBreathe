@@ -30,6 +30,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dmtaiwan.alexander.taiwanaqi.listing.ListingActivity" />
         </activity>
+
+        <provider
+            android:name="com.dmtaiwan.alexander.taiwanaqi.database.AqContentProvider"
+            android:authorities="com.dmtaiwan.alexander.rxcanibreathe" >
+        </provider>
+
     </application>
 
 </manifest>

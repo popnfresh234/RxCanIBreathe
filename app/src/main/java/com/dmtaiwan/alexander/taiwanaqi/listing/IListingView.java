@@ -12,5 +12,4 @@ public interface IListingView {
 
     void networkFailed(String error);
 
-    void cacheFailed(String error);
 }
