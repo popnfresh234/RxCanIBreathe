@@ -7,4 +7,6 @@ public interface LayoutController {
     void enableScroll();
 
     void disableScroll();
+
+    void expandToolbar();
 }

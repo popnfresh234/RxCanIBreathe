@@ -3,6 +3,7 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -65,6 +66,13 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         }
     }
 
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            setBehavior();
+        }
+    }
 
     @Nullable
     @Override
@@ -73,7 +81,6 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         ButterKnife.bind(this, rootView);
         setRetainInstance(true);
         setupRecyclerView();
-        //TODO check if scrollable, enable/disable behavior
         return rootView;
     }
 
@@ -95,6 +102,8 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
+        //TODO behavior
+        setBehavior();
     }
 
     @Override
@@ -129,6 +138,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         }
         mAdapter.updateData(aqStations);
         //TODO check if scrollable, if so modify behavior
+        setBehavior();
     }
 
     @Override
@@ -140,4 +150,30 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         getActivity().getSupportLoaderManager().restartLoader(mPageNumber, null, this);
     }
 
+    private void setBehavior() {
+        if (mRecyclerView != null) {
+
+
+        final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //no items in the RecyclerView
+                if (mRecyclerView.getAdapter().getItemCount() == 0) {
+                    mRecyclerView.setNestedScrollingEnabled(false);
+                    mLayoutController.expandToolbar();
+                }
+
+                    //if the first and the last item is visible
+                else if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                        && layoutManager.findLastCompletelyVisibleItemPosition() == mRecyclerView.getAdapter().getItemCount() - 1) {
+                    mRecyclerView.setNestedScrollingEnabled(false);
+                    mLayoutController.expandToolbar();
+                }
+                else
+                    mRecyclerView.setNestedScrollingEnabled(true);
+            }
+        }, 50);
+    }
+    }
 }

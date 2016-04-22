@@ -168,4 +168,9 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         params.setScrollFlags(0);
         mToolbar.setLayoutParams(params);
     }
+
+    @Override
+    public void expandToolbar() {
+        mAppBar.setExpanded(true);
+    }
 }
