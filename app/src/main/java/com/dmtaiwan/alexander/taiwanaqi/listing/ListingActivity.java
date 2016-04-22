@@ -22,7 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscription;
 
-public class ListingActivity extends AppCompatActivity implements IListingView{
+public class ListingActivity extends AppCompatActivity implements IListingView, LayoutController{
 
     public static final String LOG_TAG = ListingActivity.class.getSimpleName();
 
@@ -149,5 +149,23 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
             updateTabs();
             mPagerAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void enableScroll() {
+        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
+        params.setScrollFlags(
+                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
+                        | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
+                        | AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
+        );
+        mToolbar.setLayoutParams(params);
+    }
+
+    @Override
+    public void disableScroll() {
+        final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
+        params.setScrollFlags(0);
+        mToolbar.setLayoutParams(params);
     }
 }

@@ -1,5 +1,6 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -31,11 +32,14 @@ import butterknife.ButterKnife;
  */
 public class ListingFragment extends Fragment implements ListingAdapter.RecyclerClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int DOWN = 1;
+    private static final int UP = 0;
+    private final int delay = 50;
 
     private int mPageNumber;
     private ListingAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
-
+    private LayoutController mLayoutController;
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -50,13 +54,26 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         return listingFragment;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            mLayoutController = (ListingActivity) getActivity();
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_listing, container, false);
         ButterKnife.bind(this, rootView);
-        setupAdapter();
         setRetainInstance(true);
+        setupRecyclerView();
+        //TODO check if scrollable, enable/disable behavior
         return rootView;
     }
 
@@ -72,7 +89,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     }
 
-    private void setupAdapter() {
+    private void setupRecyclerView() {
         mAdapter = new ListingAdapter(getActivity(), mEmptyView, this, mPageNumber);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -94,7 +111,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         data.moveToFirst();
         Log.i("onLoadFinished", "Size: " + data.getCount());
-        List<AQStation>aqStations =new ArrayList<>();
+        List<AQStation> aqStations = new ArrayList<>();
         while (data.moveToNext()) {
             //Create list of AqStations to populate adapter
             AQStation aqStation = new AQStation();
@@ -111,6 +128,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
             aqStations.add(aqStation);
         }
         mAdapter.updateData(aqStations);
+        //TODO check if scrollable, if so modify behavior
     }
 
     @Override
@@ -121,4 +139,5 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     public void restartLoader() {
         getActivity().getSupportLoaderManager().restartLoader(mPageNumber, null, this);
     }
+
 }
