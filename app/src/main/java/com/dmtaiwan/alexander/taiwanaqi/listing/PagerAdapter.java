@@ -4,7 +4,7 @@ import android.content.Context;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Alexander on 4/13/2016.
  */
-public class PagerAdapter extends FragmentPagerAdapter {
+public class PagerAdapter extends FragmentStatePagerAdapter {
 
     private List<AQStation> aqStations;
     private static final int NUM_ITEMS = 2;
@@ -25,6 +25,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
         super(fragmentManager);
         this.mContext = context;
     }
+
+
 
     @Override
     public Fragment getItem(int position) {

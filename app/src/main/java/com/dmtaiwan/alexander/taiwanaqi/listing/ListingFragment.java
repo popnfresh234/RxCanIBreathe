@@ -3,7 +3,6 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -15,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
@@ -70,7 +70,17 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            setBehavior();
+
+            if (mRecyclerView != null) {
+                mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                        setBehavior();
+                        return false;
+                    }
+                });
+            }
         }
     }
 
@@ -93,7 +103,6 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     private void setupRecyclerView() {
@@ -103,7 +112,6 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
         //TODO behavior
-        setBehavior();
     }
 
     @Override
@@ -138,7 +146,15 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         }
         mAdapter.updateData(aqStations);
         //TODO check if scrollable, if so modify behavior
-        setBehavior();
+        mRecyclerView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mRecyclerView.getViewTreeObserver().removeOnPreDrawListener(this);
+                setBehavior();
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -150,30 +166,28 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         getActivity().getSupportLoaderManager().restartLoader(mPageNumber, null, this);
     }
 
-    private void setBehavior() {
+    public void setBehavior() {
         if (mRecyclerView != null) {
 
 
-        final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //no items in the RecyclerView
-                if (mRecyclerView.getAdapter().getItemCount() == 0) {
-                    mRecyclerView.setNestedScrollingEnabled(false);
-                    mLayoutController.expandToolbar();
-                }
+            final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 
-                    //if the first and the last item is visible
-                else if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0
-                        && layoutManager.findLastCompletelyVisibleItemPosition() == mRecyclerView.getAdapter().getItemCount() - 1) {
-                    mRecyclerView.setNestedScrollingEnabled(false);
-                    mLayoutController.expandToolbar();
-                }
-                else
-                    mRecyclerView.setNestedScrollingEnabled(true);
+            if (mRecyclerView.getAdapter().getItemCount() == 0) {
+                mRecyclerView.setNestedScrollingEnabled(false);
+                mLayoutController.expandToolbar();
+                Log.i("SCROLL", "DISABLE");
             }
-        }, 50);
-    }
+
+            //if the first and the last item is visible
+            else if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0
+                    && layoutManager.findLastCompletelyVisibleItemPosition() == mRecyclerView.getAdapter().getItemCount() - 1) {
+                mRecyclerView.setNestedScrollingEnabled(false);
+                mLayoutController.expandToolbar();
+                Log.i("SCROLL", "DISABLE");
+            } else {
+                mRecyclerView.setNestedScrollingEnabled(true);
+                Log.i("SCROLL", "ENABLE");
+            }
+        }
     }
 }
