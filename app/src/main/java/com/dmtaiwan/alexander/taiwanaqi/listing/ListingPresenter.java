@@ -3,8 +3,6 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 import android.content.Context;
 import android.util.Log;
 
-import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
-
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,7 +27,7 @@ public class ListingPresenter implements IListingPresenter {
         return mListingInteractor.getNetworkData()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<RxResponse>() {
+                .subscribe(new Subscriber<Void>() {
                     @Override
                     public void onCompleted() {
 
@@ -43,8 +41,8 @@ public class ListingPresenter implements IListingPresenter {
                     }
 
                     @Override
-                    public void onNext(RxResponse rxResponse) {
-                        mListingView.showStations(rxResponse);
+                    public void onNext(Void avoid) {
+                        mListingView.onSuccess(avoid);
                     }
                 });
     }

@@ -2,11 +2,9 @@ package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.util.Log;
 
 import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
-import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.network.HttpClientFactory;
 import com.dmtaiwan.alexander.taiwanaqi.network.RequestGenerator;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.AqStationParser;
@@ -35,7 +33,7 @@ public class ListingInteractor implements IListingInteractor {
     }
 
     @Override
-    public Observable<RxResponse> getNetworkData() {
+    public Observable<Void> getNetworkData() {
         return Observable.defer(() -> {
 
             try {
@@ -48,7 +46,7 @@ public class ListingInteractor implements IListingInteractor {
 
     }
 
-    private RxResponse getNetwork(Context context) throws JSONException, IOException {
+    private Void getNetwork(Context context) throws JSONException, IOException {
         Request request = RequestGenerator.get(Utilities.API_URL);
         OkHttpClient client = HttpClientFactory.getClient();
         Response response = null;
@@ -68,11 +66,7 @@ public class ListingInteractor implements IListingInteractor {
             if (contentValuesVector.size() > 0) {
                 writeToDatabase(contentValuesVector);
             }
-
-
-
-
-            return new RxResponse(RxResponse.NETWORK_CALL, null);
+            return null;
         } else {
             Log.i("HTTP ERROR CODE", "CODE : " + response.code());
             throw new RuntimeException("Error: " + response.code());
@@ -84,8 +78,5 @@ public class ListingInteractor implements IListingInteractor {
         ContentValues[] contentValuesArray = new ContentValues[contentValuesVector.size()];
         contentValuesVector.toArray(contentValuesArray);
         context.getContentResolver().bulkInsert(AqStationContract.CONTENT_URI, contentValuesArray);
-        //Test
-        Cursor cursor = context.getContentResolver().query(AqStationContract.CONTENT_URI, null, null, null, null);
-
     }
 }

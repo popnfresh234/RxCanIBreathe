@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
-import com.dmtaiwan.alexander.taiwanaqi.models.RxResponse;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
@@ -122,20 +121,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView{
     }
 
     @Override
-    public void showStations(RxResponse rxResponse) {
-        handleResponse(rxResponse);
-    }
-
-    private void handleResponse(RxResponse rxResponse) {
-        switch (rxResponse.getResponseType()) {
-            case RxResponse.CACHE_CALL:
-                //TODO Update data
-                break;
-            case RxResponse.NETWORK_CALL:
-                //TODO Update data
-                makeSnackBar("Update Successful!");
-                break;
-        }
+    public void onSuccess(Void avoid) {
+        makeSnackBar("Update Successful!");
     }
 
 
