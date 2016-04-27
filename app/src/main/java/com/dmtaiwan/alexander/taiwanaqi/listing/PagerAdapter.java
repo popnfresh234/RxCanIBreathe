@@ -42,10 +42,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        ListingFragment fragment = (ListingFragment) object;
-        if (fragment != null ){
-            fragment.restartLoader();
-        }
+
         return super.getItemPosition(object);
     }
 

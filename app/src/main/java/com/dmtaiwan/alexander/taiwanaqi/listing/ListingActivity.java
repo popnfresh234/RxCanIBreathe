@@ -1,11 +1,15 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,16 +20,22 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Subscription;
 
-public class ListingActivity extends AppCompatActivity implements IListingView, LayoutController{
+public class ListingActivity extends AppCompatActivity implements IListingView, LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String LOG_TAG = ListingActivity.class.getSimpleName();
+    private static final String LOG_TAG = ListingActivity.class.getSimpleName();
+    private static final int LOADER_ID = 888;
 
     private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
@@ -60,7 +70,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         if (savedInstanceState == null) {
             mSubscription = mListingPresenter.fetchData();
         }
-
+        getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
     }
 
@@ -169,25 +179,39 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     }
 
     @Override
-    public void enableScroll() {
-        AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
-        params.setScrollFlags(
-                AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                        | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS
-                        | AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
-        );
-        mToolbar.setLayoutParams(params);
+    public Loader onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, AqStationContract.CONTENT_URI, AqStationContract.STATION_COLUMNS, null, null, null);
     }
 
     @Override
-    public void disableScroll() {
-        final AppBarLayout.LayoutParams params = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
-        params.setScrollFlags(0);
-        mToolbar.setLayoutParams(params);
+    public void onLoadFinished(Loader loader, Cursor data) {
+        data.moveToFirst();
+        Log.i("onLoadFinished", "Size: " + data.getCount());
+        List<AQStation> aqStations = new ArrayList<>();
+        while (data.moveToNext()) {
+            //Create list of AqStations to populate adapter
+            AQStation aqStation = new AQStation();
+            aqStation.setSiteNumber(data.getInt(AqStationContract.STATION_ID_INT));
+            aqStation.setSiteName(data.getString(AqStationContract.SITE_NAME_INT));
+            aqStation.setCounty(data.getString(AqStationContract.COUNTY_INT));
+            aqStation.setPM25(data.getString(AqStationContract.PM25_INT));
+            aqStation.setAQI(data.getString(AqStationContract.AQI_INT));
+            aqStation.setWindSpeed(data.getString(AqStationContract.WIND_SPEED_INT));
+            aqStation.setFormattedWindSpeed(data.getString(AqStationContract.FORMATTED_WIND_SPEED_INT));
+            aqStation.setWindDirec(data.getString(AqStationContract.WIND_DIRECTION_INT));
+            aqStation.setPublishTime(data.getString(AqStationContract.PUBLISH_TIME_INT));
+            aqStation.setFormattedTime(data.getString(AqStationContract.FORMATTED_TIME_INT));
+            aqStations.add(aqStation);
+        }
+        Log.i(LOG_TAG, "Cursor Loaded " + aqStations.size() + " stations");
     }
 
     @Override
-    public void expandToolbar() {
-        mAppBar.setExpanded(true);
+    public void onLoaderReset(Loader loader) {
+
+    }
+
+    public void restartLoader() {
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 }
