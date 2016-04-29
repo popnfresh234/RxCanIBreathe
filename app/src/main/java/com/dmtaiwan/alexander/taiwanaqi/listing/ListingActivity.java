@@ -40,6 +40,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     private PagerAdapter mPagerAdapter;
     private ListingPresenter mListingPresenter;
     private Subscription mSubscription;
+    private List<AQStation> mAqStations;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -68,7 +69,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         setupViewPager();
         mListingPresenter = new ListingPresenter(this, getApplicationContext());
         if (savedInstanceState == null) {
-            mSubscription = mListingPresenter.fetchData();
+//            mSubscription = mListingPresenter.fetchData();
         }
         getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
@@ -174,9 +175,11 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Utilities.RESULT_SETTING_CHANGED) {
             updateTabs();
-            mPagerAdapter.notifyDataSetChanged();
+            mPagerAdapter.updateData(mAqStations);
         }
     }
+
+
 
     @Override
     public Loader onCreateLoader(int id, Bundle args) {
@@ -204,6 +207,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
             aqStations.add(aqStation);
         }
         Log.i(LOG_TAG, "Cursor Loaded " + aqStations.size() + " stations");
+        mAqStations = aqStations;
+        mPagerAdapter.updateData(mAqStations);
     }
 
     @Override
@@ -214,4 +219,5 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     public void restartLoader() {
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
+
 }

@@ -26,15 +26,19 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         this.mContext = context;
     }
 
+    public void updateData(List<AQStation> aqStations) {
+        this.aqStations = aqStations;
+        notifyDataSetChanged();
+    }
 
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return ListingFragment.newInstance(position);
+                return ListingFragment.newInstance(position, aqStations);
             case 1:
-                return ListingFragment.newInstance(position);
+                return ListingFragment.newInstance(position, aqStations);
             default:return null;
         }
     }
@@ -43,7 +47,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getItemPosition(Object object) {
 
-        return super.getItemPosition(object);
+        return POSITION_NONE;
     }
 
     @Override

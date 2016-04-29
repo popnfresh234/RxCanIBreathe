@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     private int mPageNumber;
     private ListingAdapter mAdapter;
     private LinearLayoutManager mLayoutManager;
+    private List<AQStation> mAqStations;
 
     @Bind(R.id.empty_view)
     TextView mEmptyView;
@@ -37,12 +39,18 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     RecyclerView mRecyclerView;
 
 
-    public static ListingFragment newInstance(int pageNumber) {
+    public static ListingFragment newInstance(int pageNumber, List<AQStation> aqStations) {
         ListingFragment listingFragment = new ListingFragment();
         listingFragment.mPageNumber = pageNumber;
+        listingFragment.mAqStations = aqStations;
         return listingFragment;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("Frag OnResume", "onResume");
+    }
 
     @Nullable
     @Override
@@ -60,13 +68,11 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.updateData(mAqStations);
     }
 
     @Override
     public void onRecyclerClick(AQStation aqStation, List<AQStation> aqStationList) {
 
     }
-
-
-
 }

@@ -107,8 +107,10 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
     public void updateData(List<AQStation> stationList) {
         mStationList = sortStations(stationList, mPage);
         notifyDataSetChanged();
-        mEmptyView.setVisibility(mStationList.size() == 0 ? View.VISIBLE : View.GONE);
+        setEmptyView();
     }
+
+
 
     public interface RecyclerClickListener {
         void onRecyclerClick(AQStation aqStation, List<AQStation> aqStationList);
@@ -117,7 +119,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
 
     private List<AQStation> sortStations(List<AQStation> aqStationList, int page) {
         List<AQStation> sortedStations = new ArrayList<>();
-        if (page == 0) {
+        if (page == 0 && aqStationList!= null) {
             String county = PreferenceManager.getDefaultSharedPreferences(mContext).getString(mContext.getString(R.string.pref_key_county), mContext.getString(R.string.pref_county_taipei_city));
             for (AQStation aqStation : aqStationList) {;
                 if (aqStation.getCounty().equals(county)) {
@@ -126,7 +128,7 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
             }
             return sortedStations;
         }
-        if (page == 1) {
+        if (page == 1 && aqStationList != null) {
             String secondaryCounty = PreferenceManager.getDefaultSharedPreferences(mContext).getString(mContext.getString(R.string.pref_key_secondary_county), mContext.getString(R.string.pref_county_taipei_city));
             for (AQStation aqStation : aqStationList) {
                 if (aqStation.getCounty().equals(secondaryCounty)) {
@@ -136,6 +138,14 @@ public class ListingAdapter extends RecyclerView.Adapter<ListingAdapter.ViewHold
             return sortedStations;
         } else {
             return null;
+        }
+    }
+
+    private void setEmptyView() {
+        if (mStationList == null) {
+            mEmptyView.setVisibility(View.VISIBLE);
+        }else {
+            mEmptyView.setVisibility(mStationList.size() == 0 ? View.VISIBLE : View.GONE);
         }
     }
 }
