@@ -8,10 +8,10 @@
     tools:context=".listing.ListingActivity"
     tools:showIn="@layout/activity_listing">
 
-    <com.dmtaiwan.alexander.taiwanaqi.utilities.RecyclerViewCustom
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/aq_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         />
 
     <TextView

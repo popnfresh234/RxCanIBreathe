@@ -12,6 +12,7 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.CustomAppBarBehavior;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import java.util.ArrayList;
@@ -41,6 +43,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     private ListingPresenter mListingPresenter;
     private Subscription mSubscription;
     private List<AQStation> mAqStations;
+    private CustomAppBarBehavior appBarBehavior;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -75,6 +78,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -101,7 +106,17 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
             @Override
             public void onPageSelected(int position) {
-                Log.i("SELECTED", "SELECTED: " + position);
+                ListingFragment fragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
+                LinearLayoutManager llm = (LinearLayoutManager) fragment.getRecyclerView().getLayoutManager();
+                if (llm.findLastCompletelyVisibleItemPosition() == fragment.getmStationCoutnt() - 1 && !(llm.findFirstVisibleItemPosition() < llm.findFirstCompletelyVisibleItemPosition())){
+
+                    int count = fragment.getmStationCoutnt() - 1;
+                    Log.i(LOG_TAG, position+ "OFF");
+                    Log.i("LAST ITEM " + llm.findLastCompletelyVisibleItemPosition(), "COUNT " + count);
+                    mAppBar.setExpanded(true);
+
+                }
+
             }
 
             @Override
@@ -111,6 +126,8 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         });
         mTabLayout.setupWithViewPager(mViewPager);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
