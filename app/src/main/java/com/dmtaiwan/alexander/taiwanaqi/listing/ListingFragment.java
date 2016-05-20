@@ -70,7 +70,19 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.updateData(mAqStations);
-        mRecyclerView.addOnGlobalLayoutListener();
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mRecyclerView != null) {
+                Log.i("SCROLL CHECK", "SCROLL CEHCK");
+                mRecyclerView.addOnGlobalLayoutListener();
+            }
+
+        }
     }
 
     @Override
