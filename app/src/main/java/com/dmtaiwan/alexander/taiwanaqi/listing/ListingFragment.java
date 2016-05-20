@@ -70,7 +70,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.updateData(mAqStations);
-
+        mRecyclerView.addOnGlobalLayoutListener();
     }
 
     @Override
