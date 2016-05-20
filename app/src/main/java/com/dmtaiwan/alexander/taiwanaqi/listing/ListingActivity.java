@@ -220,4 +220,5 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
+
 }

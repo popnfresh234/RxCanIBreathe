@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.TextView;
 import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.DividerItemDecoration;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.RecyclerViewCustom;
 
 import java.util.List;
 
@@ -36,7 +36,8 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
     TextView mEmptyView;
 
     @Bind(R.id.aq_recycler_view)
-    RecyclerView mRecyclerView;
+    RecyclerViewCustom mRecyclerView;
+
 
 
     public static ListingFragment newInstance(int pageNumber, List<AQStation> aqStations) {
@@ -69,6 +70,7 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST));
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.updateData(mAqStations);
+        mRecyclerView.addOnGlobalLayoutListener();
     }
 
     @Override
