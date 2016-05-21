@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,6 +23,10 @@ public class Utilities {
     public static final String API_URL = "http://opendata.epa.gov.tw/ws/Data/AQX/?$orderby=County&$skip=0&$top=1000&format=json";
     public static final String FILE_NAME = "epa.json";
     public static final String DATABASE_NAME = "aq_database";
+
+    //Intent extras
+    public static final String EXTRA_AQ_STATION = "com.dmtaiwan.alexander.canibreathe.aqstation";
+    public static final String EXTRA_AQ_STATIONS_LIST = "com.dmtaiwan.alexander.canibreathe.aqstationslist";
 
     public static final int RESULT_SETTING_CHANGED = 888;
 
@@ -95,5 +100,82 @@ public class Utilities {
         } else return ContextCompat.getDrawable(context, R.drawable.circle_bg_purple);
     }
 
+    public static String getAQDetailTitle(int position, Context context) {
+        switch (position) {
+            case 0:
+                return context.getResources().getString(R.string.aq_detail_title_pm25);
+            case 1:
+                return context.getResources().getString(R.string.aq_detail_title_wind_direction);
+            case 2:
+                return context.getResources().getString(R.string.aq_detail_title_wind_speed);
+            case 3:
+                return context.getResources().getString(R.string.aq_detail_title_update);
+            default:
+                return null;
+        }
+    }
 
+    public static String getAqData(int position, AQStation aqStation) {
+        switch (position) {
+            case 0:
+                return aqStation.getAQI();
+            case 1:
+                return formatWindDirection(aqStation.getWindDirec());
+            case 2:
+                return aqStation.getFormattedWindSpeed();
+            case 3:
+                return aqStation.getFormattedTime();
+            default:
+                return null;
+        }
+    }
+
+    public static String formatWindDirection(String windDirection) {
+        if (windDirection.equals("")) {
+            return "0" + "\u00B0";
+        } else {
+            return windDirection + "\u00B0";
+        }
+    }
+
+    public static float getWindDegreeForRotate(String windDirection) {
+        if (windDirection.equals("")) {
+            return 0;
+        } else {
+            return Float.valueOf(windDirection);
+        }
+    }
+
+    public static int getAqIcon(int position) {
+        switch (position) {
+            case 0:
+                return R.drawable.icon_pm25;
+            case 1:
+                return R.drawable.icon_wind_direction;
+            case 2:
+                return R.drawable.icon_wind_speed;
+            case 3:
+                return R.drawable.icon_time;
+            default:
+                return 0;
+        }
+    }
+
+    public static int getDetailHeader(String aqi, Context context) {
+        if (aqi.equals("?")) {
+            return R.drawable.aq_good;
+        }
+
+        double aqiDouble = Double.valueOf(aqi);
+
+        if (aqiDouble <= 50) {
+            return R.drawable.aq_good;
+        } else if (aqiDouble > 51 && aqiDouble <= 100) {
+            return R.drawable.aq_moderate;
+        } else if (aqiDouble > 101 && aqiDouble <= 150) {
+            return R.drawable.aq_unhealthy;
+        } else if (aqiDouble > 151 && aqiDouble <= 200) {
+            return R.drawable.aq_dangerous;
+        } else return R.drawable.aq_unknown;
+    }
 }

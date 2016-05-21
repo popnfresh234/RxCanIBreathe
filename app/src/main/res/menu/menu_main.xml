@@ -4,13 +4,13 @@
     tools:context=".listing.ListingActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="200"
+        android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_refresh"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="@string/action_refresh"
         app:showAsAction="never" />
 

@@ -1,5 +1,6 @@
 package com.dmtaiwan.alexander.taiwanaqi.listing;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dmtaiwan.alexander.taiwanaqi.R;
+import com.dmtaiwan.alexander.taiwanaqi.details.DetailActivity;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.DividerItemDecoration;
+import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -74,7 +78,11 @@ public class ListingFragment extends Fragment implements ListingAdapter.Recycler
 
     @Override
     public void onRecyclerClick(AQStation aqStation, List<AQStation> aqStationList) {
-
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra(Utilities.EXTRA_AQ_STATION, aqStation);
+        ArrayList<AQStation> parcelableList = new ArrayList<AQStation>(mAqStations);
+        intent.putParcelableArrayListExtra(Utilities.EXTRA_AQ_STATIONS_LIST, parcelableList);
+        startActivity(intent);
     }
 
     public RecyclerView getRecyclerView() {

@@ -21,6 +21,9 @@
             </intent-filter>
         </activity>
 
+        <!--DetailActivity-->
+        <activity android:name=".details.DetailActivity"/>
+
         <!-- SettingsActivity -->
         <activity
             android:name="com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity"

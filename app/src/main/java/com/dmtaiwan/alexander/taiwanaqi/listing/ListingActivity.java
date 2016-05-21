@@ -106,17 +106,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
 
             @Override
             public void onPageSelected(int position) {
-                ListingFragment fragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
-                LinearLayoutManager llm = (LinearLayoutManager) fragment.getRecyclerView().getLayoutManager();
-                if (llm.findLastCompletelyVisibleItemPosition() == fragment.getmStationCoutnt() - 1 && !(llm.findFirstVisibleItemPosition() < llm.findFirstCompletelyVisibleItemPosition())){
-
-                    int count = fragment.getmStationCoutnt() - 1;
-                    Log.i(LOG_TAG, position+ "OFF");
-                    Log.i("LAST ITEM " + llm.findLastCompletelyVisibleItemPosition(), "COUNT " + count);
-                    mAppBar.setExpanded(true);
-
-                }
-
+                setAppBarAndBehavior();
             }
 
             @Override
@@ -127,6 +117,17 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
+    private void setAppBarAndBehavior() {
+        ListingFragment fragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
+        LinearLayoutManager llm = (LinearLayoutManager) fragment.getRecyclerView().getLayoutManager();
+        if (llm.findLastCompletelyVisibleItemPosition() == fragment.getmStationCoutnt() - 1 && !(llm.findFirstVisibleItemPosition() < llm.findFirstCompletelyVisibleItemPosition())){
+            int count = fragment.getmStationCoutnt() - 1;
+            mAppBar.setExpanded(true);
+
+        }else{
+            llm.scrollToPosition(0);
+        }
+    }
 
 
     @Override
