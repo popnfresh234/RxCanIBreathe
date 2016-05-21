@@ -103,27 +103,48 @@ public class Utilities {
     public static String getAQDetailTitle(int position, Context context) {
         switch (position) {
             case 0:
-                return context.getResources().getString(R.string.aq_detail_title_pm25);
+                return "Station";
             case 1:
-                return context.getResources().getString(R.string.aq_detail_title_wind_direction);
+                return context.getResources().getString(R.string.aq_detail_title_pm25);
             case 2:
-                return context.getResources().getString(R.string.aq_detail_title_wind_speed);
+                return context.getResources().getString(R.string.aq_detail_title_wind_direction);
             case 3:
+                return context.getResources().getString(R.string.aq_detail_title_wind_speed);
+            case 4:
                 return context.getResources().getString(R.string.aq_detail_title_update);
             default:
                 return null;
         }
     }
 
+    public static int getAqIcon(int position) {
+        switch (position) {
+            case 0:
+                return R.drawable.icon_pm25;
+            case 1:
+                return R.drawable.icon_pm25;
+            case 2:
+                return R.drawable.icon_wind_direction;
+            case 3:
+                return R.drawable.icon_wind_speed;
+            case 4:
+                return R.drawable.icon_time;
+            default:
+                return 0;
+        }
+    }
+
     public static String getAqData(int position, AQStation aqStation) {
         switch (position) {
             case 0:
-                return aqStation.getAQI();
+                return aqStation.getSiteName();
             case 1:
-                return formatWindDirection(aqStation.getWindDirec());
+                return aqStation.getAQI();
             case 2:
-                return aqStation.getFormattedWindSpeed();
+                return formatWindDirection(aqStation.getWindDirec());
             case 3:
+                return aqStation.getFormattedWindSpeed();
+            case 4:
                 return aqStation.getFormattedTime();
             default:
                 return null;
@@ -146,20 +167,7 @@ public class Utilities {
         }
     }
 
-    public static int getAqIcon(int position) {
-        switch (position) {
-            case 0:
-                return R.drawable.icon_pm25;
-            case 1:
-                return R.drawable.icon_wind_direction;
-            case 2:
-                return R.drawable.icon_wind_speed;
-            case 3:
-                return R.drawable.icon_time;
-            default:
-                return 0;
-        }
-    }
+
 
     public static int getDetailHeader(String aqi, Context context) {
         if (aqi.equals("?")) {

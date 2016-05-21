@@ -60,7 +60,6 @@ public class DetailFragment extends Fragment {
 
         if (getArguments() != null) {
             mAQStation = getArguments().getParcelable(Utilities.EXTRA_AQ_STATION);
-            mToolbar.setTitle(mAQStation.getSiteName());
         }
 
         ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
