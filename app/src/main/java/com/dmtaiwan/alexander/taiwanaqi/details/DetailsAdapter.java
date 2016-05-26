@@ -43,7 +43,7 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.ViewHold
         holder.mData.setText(Utilities.getAqData(position, mAQStation));
         holder.mIcon.setImageResource(Utilities.getAqIcon(position));
 
-        if (position == 1) {
+        if (position == 2) {
             float angle = Utilities.getWindDegreeForRotate(mAQStation.getWindDirec());
             holder.mIcon.setRotation(angle);
         }
