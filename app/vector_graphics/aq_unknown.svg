@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1000"
+   height="562"
+   viewBox="0 0 1000 562.00001"
+   id="svg4170"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="aq_unknown.svg"
+   inkscape:export-filename="F:\Development\Android\Projects\CanIBreathe\app\src\main\res\drawable\aq_unknown.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4172">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4722">
+      <stop
+         style="stop-color:#9e9e9e;stop-opacity:1"
+         offset="0"
+         id="stop4724" />
+      <stop
+         style="stop-color:#616161;stop-opacity:1"
+         offset="1"
+         id="stop4726" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4722"
+       id="linearGradient4728"
+       x1="280"
+       y1="589.505"
+       x2="280"
+       y2="918.07642"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="246.40066"
+     inkscape:cy="352.03772"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="5"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4175">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-490.36216)">
+    <rect
+       style="fill:url(#linearGradient4728);fill-opacity:1;stroke:none;stroke-width:2;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect4720"
+       width="1000"
+       height="562"
+       x="0"
+       y="490.36215" />
+    <g
+       id="g4666"
+       transform="translate(-218.03213,506.85938)">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="403.29092"
+         x="-209.4257"
+         height="89.081635"
+         width="89.081635"
+         id="rect4645-4"
+         style="opacity:1;fill:#ffff00;stroke:#0000ff;stroke-width:0.91836727;stroke-opacity:0.52903221" />
+      <rect
+         transform="matrix(0.70710678,-0.70710678,0.70710678,0.70710678,0,0)"
+         y="388.28372"
+         x="156.24776"
+         height="89.081635"
+         width="89.081635"
+         id="rect4645"
+         style="opacity:1;fill:#ff9800;fill-opacity:1;stroke:#0000ff;stroke-width:0.91836727;stroke-opacity:0.52903221" />
+      <circle
+         transform="matrix(0,1,-1,0,0,0)"
+         r="48.127686"
+         cy="-446.72363"
+         cx="164.63806"
+         id="path4641"
+         style="opacity:1;fill:#ffeb3b;fill-opacity:1;stroke:#0000ff;stroke-opacity:0.52903221" />
+    </g>
+    <circle
+       cy="666.68787"
+       cx="211.18211"
+       id="path5373"
+       style="opacity:1;fill:#000000;stroke:none;stroke-opacity:0.52903221"
+       r="8.5968103" />
+    <circle
+       r="6.8290434"
+       cy="662.5426"
+       cx="243.98541"
+       id="path5373-1"
+       style="opacity:1;fill:#000000;stroke:none;stroke-opacity:0.52903221" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:3.70140147;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 210.51394,684.45198 c 21.57927,37.12323 27.89668,-18.88484 40.72211,4.38469"
+       id="path4784"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4807"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-size:40px;line-height:125%;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.9959699,0.74842132,-0.74842132,0.9959699,15.520473,171.9952)"><flowRegion
+         id="flowRegion4809"><rect
+           id="rect4811"
+           width="135.71428"
+           height="137.14285"
+           x="391.42856"
+           y="113.42857"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded'" /></flowRegion><flowPara
+         id="flowPara4813"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS'">?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4807-0"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-size:40px;line-height:125%;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(2.0217931,-0.05398921,0.05398921,2.0217931,-556.11797,324.29055)"
+       inkscape:transform-center-x="-111.50099"
+       inkscape:transform-center-y="49.813525"><flowRegion
+         id="flowRegion4809-5"><rect
+           id="rect4811-8"
+           width="135.71428"
+           height="137.14285"
+           x="391.42856"
+           y="113.42857"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded'" /></flowRegion><flowPara
+         id="flowPara4813-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS'">?</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4807-1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-size:40px;line-height:125%;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.96721514,-0.91933457,0.91933457,0.96721514,-327.52309,832.35073)"><flowRegion
+         id="flowRegion4809-4"><rect
+           id="rect4811-1"
+           width="135.71428"
+           height="137.14285"
+           x="391.42856"
+           y="113.42857"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:semi-expanded;font-family:Ravie;-inkscape-font-specification:'Ravie Semi-Expanded'" /></flowRegion><flowPara
+         id="flowPara4813-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Comic Sans MS';-inkscape-font-specification:'Comic Sans MS'">?</flowPara></flowRoot>  </g>
+</svg>
