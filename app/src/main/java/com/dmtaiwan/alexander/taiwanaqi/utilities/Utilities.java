@@ -120,7 +120,7 @@ public class Utilities {
     public static int getAqIcon(int position) {
         switch (position) {
             case 0:
-                return R.drawable.icon_pm25;
+                return R.drawable.icon_station;
             case 1:
                 return R.drawable.icon_pm25;
             case 2:
