@@ -18,7 +18,7 @@
     <string name="update_success">Update successful!</string>
 
     <!--AQ Detail Strings-->
-    <string name="aq_detail_title_pm25">PM 2.5</string>
+    <string name="aq_detail_title_pm25">AQI Index</string>
     <string name="aq_detail_title_wind_speed">Wind Speed</string>
     <string name="aq_detail_title_wind_direction">Wind Direction</string>
     <string name="aq_detail_title_update">Last Update</string>
