@@ -24,7 +24,6 @@ import com.dmtaiwan.alexander.taiwanaqi.R;
 import com.dmtaiwan.alexander.taiwanaqi.database.AqStationContract;
 import com.dmtaiwan.alexander.taiwanaqi.models.AQStation;
 import com.dmtaiwan.alexander.taiwanaqi.settings.SettingsActivity;
-import com.dmtaiwan.alexander.taiwanaqi.utilities.CustomAppBarBehavior;
 import com.dmtaiwan.alexander.taiwanaqi.utilities.Utilities;
 
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
     private ListingPresenter mListingPresenter;
     private Subscription mSubscription;
     private List<AQStation> mAqStations;
-    private CustomAppBarBehavior appBarBehavior;
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -107,6 +105,7 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
             @Override
             public void onPageSelected(int position) {
                 setAppBarAndBehavior();
+
             }
 
             @Override
@@ -121,11 +120,12 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         ListingFragment fragment = (ListingFragment) mPagerAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
         LinearLayoutManager llm = (LinearLayoutManager) fragment.getRecyclerView().getLayoutManager();
         if (llm.findLastCompletelyVisibleItemPosition() == fragment.getmStationCoutnt() - 1 && !(llm.findFirstVisibleItemPosition() < llm.findFirstCompletelyVisibleItemPosition())){
-            int count = fragment.getmStationCoutnt() - 1;
             mAppBar.setExpanded(true);
+            turnOffScrolling();
 
         }else{
             llm.scrollToPosition(0);
+            turnOnScrolling();
         }
     }
 
@@ -238,5 +238,23 @@ public class ListingActivity extends AppCompatActivity implements IListingView, 
         getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
     }
 
+    private void turnOffScrolling() {
+        AppBarLayout.LayoutParams toolbarLayoutParams = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
+        toolbarLayoutParams.setScrollFlags(0);
+        mToolbar.setLayoutParams(toolbarLayoutParams);
 
+        CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
+        appBarLayoutParams.setBehavior(null);
+        mAppBar.setLayoutParams(appBarLayoutParams);
+    }
+
+    private void turnOnScrolling() {
+        AppBarLayout.LayoutParams toolbarLayoutParams = (AppBarLayout.LayoutParams) mToolbar.getLayoutParams();
+        toolbarLayoutParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL | AppBarLayout.LayoutParams.SCROLL_FLAG_ENTER_ALWAYS);
+        mToolbar.setLayoutParams(toolbarLayoutParams);
+
+        CoordinatorLayout.LayoutParams appBarLayoutParams = (CoordinatorLayout.LayoutParams) mAppBar.getLayoutParams();
+        appBarLayoutParams.setBehavior(new AppBarLayout.Behavior());
+        mAppBar.setLayoutParams(appBarLayoutParams);
+    }
 }
